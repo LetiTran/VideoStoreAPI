@@ -1,5 +1,17 @@
 class Movie < ApplicationRecord
-validates :title, :release_date, :overview, presence: true
 
-has_many :rentals
+  validates :title, :release_date, :overview, presence: true
+  has_many :rentals
+
+
+  def available_inventory
+    available_count = self.inventory - Rental.where(movie_id: self.id, returned: false).count
+
+    return available_count
+  end
+
+  def available?
+    return self.available_inventory > 0
+  end
+
 end
