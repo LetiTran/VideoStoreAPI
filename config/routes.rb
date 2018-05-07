@@ -1,19 +1,21 @@
 Rails.application.routes.draw do
-  get 'rentals/index'
 
-  get 'rentals/show'
+  # Create a route that responds to /zomg that serves a json-encoded "it works!" :
 
-  get 'rentals/create'
+  # Route::get('/zomg', function(){
+  #   return 'it works!';
+  #   });
+  #
+  # get '/zomg', res.json({ message: 'it works!' })
 
-  get 'rentals/update'
+  # get '/zomg', 
 
-  get 'movies/index'
+  resources :movies, only: [:index, :show, :create]
 
-  get 'movies/show'
+  resources :customers, only: :index
 
-  get 'movies/create'
+  resources :rentals, only: [:index, :show, :create, :update]
 
-  get 'customers/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
