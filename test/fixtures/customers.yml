@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 
-Shelley:
+shelley:
   name: Shelley Rocha
   registered_at: Wed, 29 Apr 2015 07:54:14 -0700
   postal_code: 24309
@@ -15,7 +15,7 @@ Shelley:
   city: Hillsboro
   state: OR
 
-Kane: 400
+sane:
   name: Kane Johnston
   registered_at: Fri, 22 May 2015 09:56:42 -0700
   postal_code: 94282

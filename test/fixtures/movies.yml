@@ -5,14 +5,13 @@
 # below each fixture, per the syntax in the comments below
 
 
-Blacksmith:
+blacksmith:
   title: Blacksmith Of The Banished
   release_date: 1979-01-18
   overview: The unexciting life of a boy will be permanently altered as a strange woman enters his life.
   inventory: 10
 
-
-Elegance:
+elegance:
   title: Elegance Of The Machines
   release_date: 1991-05-19
   overview: But what if this neighbor is wrong about all this. Or what if the situation is worse than it appears. How could an ordinary girl be this lucky, or unlucky, depending on the turnout. We're about to find out.
