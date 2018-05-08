@@ -1,0 +1,2 @@
+object @rental
+attributes :id

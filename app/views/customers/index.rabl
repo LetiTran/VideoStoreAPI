@@ -1,0 +1,2 @@
+collection @customers
+attributes :name
