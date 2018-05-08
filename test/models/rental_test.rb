@@ -63,11 +63,7 @@ describe Rental do
       rental.returned.must_equal false
       rental.check_in
       rental.returned.must_equal true
-
     end
 
   end
-
-
-
 end
