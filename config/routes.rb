@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  get '/zomg', to: "customers#index"
+  get '/zomg', to: "customers#zomg"
 
   resources :movies, only: [:index, :show, :create]
 
-  resources :customers, only: :index
+  resources :customers, only: [ :index, :create]
 
   resources :rentals, only: [:index, :show, :create, :update]
 
