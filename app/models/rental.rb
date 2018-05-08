@@ -1,16 +1,14 @@
 class Rental < ApplicationRecord
-  require 'date'
-
   ONE_WEEK = 7
 
   validates :due_date, presence: true
-  validates :returned, inclusion: { in: [true, false] }
+  validates :returned, inclusion: { in: [false] }
 
   belongs_to :customer
   belongs_to :movie
 
   def assign_due_date
-    self.due_date = Date.today + ONE_WEEK
+    self.due_date = self.created_at.to_date + ONE_WEEK
   end
 
   def check_in
