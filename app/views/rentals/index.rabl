@@ -1,2 +1,2 @@
 collection @rentals
-attributes :id
+attributes :id, :check_in
