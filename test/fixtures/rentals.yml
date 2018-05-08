@@ -1,6 +1,17 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+rental_one:
+  due_date: 2019-01-18
+  returned: false
+  customer: shelley
+  movie: blacksmith
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
+rental_two:
+  due_date: 2019-01-18
+  returned: true
+  customer: shelley
+  movie: blacksmith
+
+rental_three:
+  due_date:
+  returned:
+  customer:
+  movie: 
