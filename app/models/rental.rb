@@ -3,9 +3,10 @@ class Rental < ApplicationRecord
 
   ONE_WEEK = 7
 
-  validates :due_date, :returned, :customer_id, :movie_id, presence: true
+  validates :due_date, presence: true
+  validates :returned, inclusion: { in: [true, false] }
 
-  belongs_to :costumer
+  belongs_to :customer
   belongs_to :movie
 
   def assign_due_date
