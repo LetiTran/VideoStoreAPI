@@ -2,30 +2,84 @@ require "test_helper"
 
 describe Customer do
 
-  describe 'validates' do
-
-    let(:shelly) { customers(:shelly) }
+  describe 'validations' do
+    let(:shelley) { customers(:shelley) }
 
     it "must be valid" do
-      value(shelly).must_be :valid?
+      value(shelley).must_be :valid?
     end
 
     it "must have a name" do
-
+      shelley.name = nil
+      shelley.valid?.must_equal false
     end
 
     it "must have a registered_at date" do
-
+      shelley.registered_at = nil
+      shelley.valid?.must_equal false
     end
 
     it "must have a phone" do
-
+      shelley.phone = nil
+      shelley.valid?.must_equal false
     end
 
+    it "must have a address" do
+      shelley.phone = nil
+      shelley.valid?.must_equal false
+    end
 
+    it "must have a city" do
+      shelley.phone = nil
+      shelley.valid?.must_equal false
+    end
 
+    it "must have a state" do
+      shelley.phone = nil
+      shelley.valid?.must_equal false
+    end
+
+    it "must have a postal_code" do
+      shelley.phone = nil
+      shelley.valid?.must_equal false
+    end
+
+    it "must have a phone" do
+      shelley.phone = nil
+      shelley.valid?.must_equal false
+    end
+  end
+
+  describe 'relations' do
+    let(:shelley) { customers(:shelley) }
+    it 'can have many rentals' do
+      shelley.must_respond_to :rentals
+    end
+  end
+
+  describe 'movies_checked_out_count' do
+    let(:shelley) { customers(:shelley) }
+
+    it 'can be called' do
+      shelley.must_respond_to :movies_checked_out_count
+    end
+
+    it 'returns the number of 0 if costumer has no rental not returned' do
+      Rental.destroy_all
+
+      shelley.movies_checked_out_count.must_equal 0
+    end
+
+    it 'returns the number of rentals a costumer has that are not returned yet' do
+      Rental.create(due_date: Date.today, customer: shelley, movie: movies(:blacksmith))
+
+      shelley.movies_checked_out_count.must_equal 1
+    end
+
+    it 'returns the number of 0 rentals if a costumer has only rentals that has been returned already' do
+      rental = Rental.create(returned: true, due_date: Date.today, customer: shelley, movie: movies(:blacksmith))
+
+      shelley.movies_checked_out_count.must_equal 0
+    end
   end
 end
-
-
-# validates :name, :registered_at, :phone, :address, :city, :state, :postal_code, presence: true
