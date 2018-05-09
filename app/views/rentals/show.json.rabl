@@ -1,2 +1,2 @@
 object @rental
-attributes :id
+attributes :id, :customer_id, :movie_id
