@@ -13,8 +13,8 @@ class Movie < ApplicationRecord
     end
   end
 
-    def available?
-      return self.available_inventory > 0
-    end
-
+  def available?
+    return self.available_inventory > 0
   end
+
+end
