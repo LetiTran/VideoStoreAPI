@@ -8,9 +8,9 @@ class CustomersController < ApplicationController
 
   def create
     customer = Customer.create(customers_params)
-    customer.assign_registered_date
-
+    
     if customer.valid?
+      customer.assign_registered_date
       render json: {id: customer.id}, status: :ok
     else
       render json: {ok: false, errors: customer.errors}, status: :bad_request
