@@ -1,13 +1,9 @@
 class CustomersController < ApplicationController
 
   def index
-<<<<<<< HEAD
     @customers = Customer.all
-=======
-    customers = Customer.all
-    render(json: customers.as_json(except: [:created_at, :updated_at]), status: :ok)
+    # render(json: customers.as_json(except: [:created_at, :updated_at]), status: :ok)
     # render json: customers, status: :ok
->>>>>>> 3ee9a9f35cb77e68c41a7607d6db16daa3e0fb31
   end
 
   def create
@@ -18,6 +14,14 @@ class CustomersController < ApplicationController
       render json: {id: customer.id}, status: :ok
     else
       render json: {ok: false, errors: customer.errors}, status: :bad_request
+    end
+  end
+
+  # (Show not required)
+  def show
+    @customer = Customer.find_by(id: params[:id])
+    if @customer.nil?
+      render json: {ok: false, error: :not_found}, status: :not_found
     end
   end
 

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :movies, only: [:index, :show, :create]
 
-  resources :customers, only: [ :index, :create]
+  resources :customers, only: [ :index, :show, :create]
 
   resources :rentals, only: [:index, :show, :create, :update]
 
