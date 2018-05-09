@@ -88,7 +88,10 @@ describe RentalsController do
     let(:rental) {rentals(:rental_one)}
 
     it "Updates a rental to be checked-in" do
-      post check_in_path(id: rental.id)
+      post check_in_path(customer_id: customers(:shelley).id, movie_id: movies(:blacksmith).id)
+
+        # binding.pry
+
       rental.returned.must_equal true
     end
   end

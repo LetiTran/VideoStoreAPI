@@ -1,6 +1,6 @@
 class Movie < ApplicationRecord
 
-  validates :title, :release_date, :overview, presence: true
+  validates :title, :release_date, :overview, :inventory, presence: true
   has_many :rentals
 
 
