@@ -1,7 +1,6 @@
 class Rental < ApplicationRecord
   ONE_WEEK = 7
 
-  validates :due_date, presence: true
   validates :returned, inclusion: { in: [true, false] }
 
   belongs_to :customer
