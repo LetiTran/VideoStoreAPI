@@ -66,7 +66,7 @@ describe CustomersController do
     it "Can create a new customer" do
       # Action / Assert
       proc {
-        post customers_path, params: {customer: customer_data}
+        post customers_path, params: customer_data
       }.must_change 'Customer.count', 1
 
       # Assert
@@ -76,7 +76,7 @@ describe CustomersController do
     it "Assigns a registered_at date upon creation" do
       # Action / Assert
       proc {
-        post customers_path, params: {customer: customer_data}
+        post customers_path, params:  customer_data
       }.must_change 'Customer.count', 1
 
       # Assert
@@ -124,7 +124,7 @@ describe CustomersController do
 
       # Action
       get customer_path(customer.id)
-      
+
       # Assert
       must_respond_with :not_found
     end
