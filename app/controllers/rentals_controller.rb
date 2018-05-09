@@ -14,13 +14,14 @@ class RentalsController < ApplicationController
 
   def create
     rental = Rental.create(rental_params)
-    rental.assign_due_date
 
     if rental.valid?
+      rental.assign_due_date
       render json: { id: rental.id }, status: :ok
     else
       render json: {ok: false, errors: rental.errors}, status: :bad_request
     end
+
   end
 
   def update

@@ -1,24 +1,86 @@
 require "test_helper"
 
 describe RentalsController do
-  it "should get index" do
-    get rentals_index_url
-    value(response).must_be :success?
+  describe "index" do
+    it "is a real working route" do
+      get rentals_url
+      must_respond_with :success
+    end
+
+    it "returns json" do
+      get rentals_url
+      response.header['Content-Type'].must_include 'json'
+    end
+
+    it "returns an Array" do
+      get rentals_url
+
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Array
+    end
+
+    it "returns all of the rentals" do
+      get rentals_url
+
+      body = JSON.parse(response.body)
+      body.length.must_equal Rental.count
+    end
+
+    it "returns rentals with exactly the required fields" do
+      keys = %w(assign_due_date check_in customer_id id movie_id)
+
+      get rentals_url
+      body = JSON.parse(response.body)
+      body.each do |rental|
+        rental.keys.sort.must_equal keys
+      end
+    end
   end
 
-  it "should get show" do
-    get rentals_show_url
-    value(response).must_be :success?
+  describe "show" do
+    it "can get a rental" do
+      get rental_path(rentals(:rental_one).id)
+      must_respond_with :success
+    end
+
+    it "returns a 404 for rentals that are not found" do
+      rental = rentals(:rental_one)
+      rental.destroy
+      get rental_path(rental.id)
+      must_respond_with :not_found
+    end
   end
 
-  it "should get create" do
-    get rentals_create_url
-    value(response).must_be :success?
-  end
+  describe "create" do
+    let(:rental_data) {
+      {
+        customer_id: customers(:shelley).id,
+        movie_id: movies(:blacksmith).id
+      }
+    }
 
-  it "should get update" do
-    get rentals_update_url
-    value(response).must_be :success?
-  end
+    it "Creates a new rental" do
+      proc {
+        post rentals_path, params: {rental: rental_data}
+      }.must_change 'Rental.count', 1
 
+      must_respond_with :success
+    end
+
+    it "returns a bad request for incorrectly creating a rental" do
+      rental_data.delete(:customer_id)
+
+      proc {
+        post rentals_path, params: {rental: rental_data}
+      }.must_change 'Rental.count', 0
+
+      must_respond_with :bad_request
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Hash
+      body.must_include "ok"
+      body["ok"].must_equal false
+      body.must_include "errors"
+      body["errors"].must_include "customer"
+    end
+  end
 end
