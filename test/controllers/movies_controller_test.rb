@@ -38,7 +38,7 @@ describe MoviesController do
 
     it "returns movies with exactly the required fields" do
       # Arrange
-      keys = %w(available_inventory id overview release_date title)
+      keys = %w(available_inventory id inventory overview release_date title)
 
       # Action
       get movies_url
@@ -59,6 +59,7 @@ describe MoviesController do
         title: "The Creation",
         release_date: "1979-01-18",
         overview: "A very interesting overview",
+        inventory: 20,
         available_inventory: 10
       }
     }
@@ -66,8 +67,9 @@ describe MoviesController do
     it "Can create a new movie" do
       # Action / Assert
       proc {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.must_change 'Movie.count', 1
+
 
       # Assert
       assert_response :success

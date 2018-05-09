@@ -27,16 +27,13 @@ class RentalsController < ApplicationController
   def update
 
     rental = Rental.find_by(customer_id: :customer_id)
-  binding.pry
     if rental
       rental.check_in
       render json: { id: rental.id }, status: :ok
-      # binding.pry
       # rental.save
 
     end
 
-    # binding.pry
 
 
     # ToDo
