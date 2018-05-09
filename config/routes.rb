@@ -8,9 +8,9 @@ Rails.application.routes.draw do
 
   resources :rentals, only: [:index, :show]
 
-  post '/rentals/check-out', to: "rentals#create", as: 'check-out'
+  post '/rentals/check-out', to: "rentals#create"
 
-  post '/rentals/check-in', to: "rentals#update", as: 'check-in'
+  post '/rentals/check-in', to: "rentals#update"
 
 
 

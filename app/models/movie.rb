@@ -9,7 +9,7 @@ class Movie < ApplicationRecord
       available_count = self.inventory - Rental.where(movie_id: self.id, returned: false).count
       return available_count
     else
-      return "No inventory"
+      return 0
     end
   end
 

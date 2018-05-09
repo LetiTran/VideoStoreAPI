@@ -25,22 +25,13 @@ class RentalsController < ApplicationController
   end
 
   def update
+    rental = Rental.where(customer_id: params[:customer_id]).find_by(movie_id: params[:movie_id])
 
-    rental = Rental.find_by(customer_id: :customer_id)
-  binding.pry
     if rental
       rental.check_in
       render json: { id: rental.id }, status: :ok
-      # binding.pry
-      # rental.save
-
     end
 
-    # binding.pry
-
-
-    # ToDo
-    # call upon check_in method from model
   end
 
   private
