@@ -1,2 +1,0 @@
-object @rental
-attributes :id
