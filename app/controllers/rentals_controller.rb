@@ -25,6 +25,17 @@ class RentalsController < ApplicationController
   end
 
   def update
+
+    rental = Rental.find_by(id: params[:id])
+
+    if rental
+      rental.check_in
+      render json: { id: rental.id }, status: :ok
+    end
+
+    # binding.pry
+
+
     # ToDo
     # call upon check_in method from model
   end

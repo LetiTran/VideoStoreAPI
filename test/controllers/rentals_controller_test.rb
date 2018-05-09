@@ -61,7 +61,7 @@ describe RentalsController do
 
     it "Creates a new rental" do
       proc {
-        post rentals_path, params: {rental: rental_data}
+        post check_out_path, params: {rental: rental_data}
       }.must_change 'Rental.count', 1
 
       must_respond_with :success
@@ -71,7 +71,7 @@ describe RentalsController do
       rental_data.delete(:customer_id)
 
       proc {
-        post rentals_path, params: {rental: rental_data}
+        post check_out_path, params: {rental: rental_data}
       }.must_change 'Rental.count', 0
 
       must_respond_with :bad_request
@@ -81,6 +81,15 @@ describe RentalsController do
       body["ok"].must_equal false
       body.must_include "errors"
       body["errors"].must_include "customer"
+    end
+  end
+
+  describe "update" do
+    let(:rental) {rentals(:rental_one)}
+
+    it "Updates a rental to be checked-in" do
+      post check_in_path(id: rental.id)
+      rental.returned.must_equal true
     end
   end
 end
