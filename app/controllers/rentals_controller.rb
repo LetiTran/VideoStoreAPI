@@ -13,15 +13,20 @@ class RentalsController < ApplicationController
   end
 
   def create
-    rental = Rental.create(rental_params)
 
-    if rental.valid?
-      rental.assign_due_date
-      render json: { id: rental.id }, status: :ok
-    else
-      render json: {ok: false, errors: rental.errors}, status: :bad_request
+    movie = Movie.find_by(id: params[:movie_id])
+
+
+    if movie.available?
+      rental = Rental.create(rental_params)
+
+      if rental.valid?
+        rental.assign_due_date
+        render json: { id: rental.id }, status: :ok
+      else
+        render json: {ok: false, errors: rental.errors}, status: :bad_request
+      end
     end
-
   end
 
   def update
@@ -32,11 +37,12 @@ class RentalsController < ApplicationController
       render json: { id: rental.id }, status: :ok
     end
 
+
   end
 
   private
 
   def rental_params
-    return  params.require(:rental).permit(:customer_id, :movie_id)
+    return  params.permit(:customer_id, :movie_id)
   end
 end

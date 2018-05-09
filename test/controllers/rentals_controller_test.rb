@@ -61,7 +61,7 @@ describe RentalsController do
 
     it "Creates a new rental" do
       proc {
-        post rentals_check_out_path, params: {rental: rental_data}
+        post rentals_check_out_path, params: rental_data
       }.must_change 'Rental.count', 1
 
       must_respond_with :success
@@ -71,7 +71,7 @@ describe RentalsController do
       rental_data.delete(:customer_id)
 
       proc {
-        post rentals_check_out_path, params: {rental: rental_data}
+        post rentals_check_out_path, params: rental_data
       }.must_change 'Rental.count', 0
 
       must_respond_with :bad_request
@@ -95,7 +95,7 @@ describe RentalsController do
     end
 
     it "Updates a rental thats is checked-in to be checked-out " do
-      post rentals_check_in_path(customer_id: customers(:shelley).id, movie_id: movies(:blacksmith).id)
+      post rentals_check_out_path(customer_id: customers(:shelley).id, movie_id: movies(:blacksmith).id)
 
         # binding.pry
 
