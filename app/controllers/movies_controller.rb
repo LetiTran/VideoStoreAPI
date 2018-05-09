@@ -1,21 +1,12 @@
 class MoviesController < ApplicationController
   def index
     @movies = Movie.all
-    # render(json: movies.as_json(except: [:created_at, :updated_at]), status: :ok)
   end
 
   def show
     @movie = Movie.find_by(id: params[:id])
 
-  if @movie.nil?
-    render json: {ok: false, error: :not_found}, status: :not_found
-  end
-    # if @movie
-    #   render json: @movie.as_json(only: [:id, :title, :release_date, :overview]), status: :ok
-    #
-    # else
-    #   render json: {ok: false, errors: "Movie not found"}, status: :not_found
-    # end
+    render json: {ok: false, error: :not_found}, status: :not_found if @movie.nil?
   end
 
   def create
