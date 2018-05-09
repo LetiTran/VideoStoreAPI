@@ -14,11 +14,6 @@ describe Customer do
       shelley.valid?.must_equal false
     end
 
-    it "must have a registered_at date" do
-      shelley.registered_at = nil
-      shelley.valid?.must_equal false
-    end
-
     it "must have a phone" do
       shelley.phone = nil
       shelley.valid?.must_equal false
@@ -71,13 +66,16 @@ describe Customer do
     end
 
     it 'returns the number of rentals a costumer has that are not returned yet' do
-      Rental.create(due_date: Date.today, customer: shelley, movie: movies(:blacksmith))
+        Rental.destroy_all
+      Rental.create(customer_id: shelley.id, movie_id: movies(:blacksmith).id)
 
       shelley.movies_checked_out_count.must_equal 1
     end
 
     it 'returns the number of 0 rentals if a costumer has only rentals that has been returned already' do
-      rental = Rental.create(returned: true, due_date: Date.today, customer: shelley, movie: movies(:blacksmith))
+        Rental.destroy_all
+      rental = Rental.create(customer_id: shelley.id, movie_id: movies(:blacksmith).id)
+      rental.update_attributes(returned: true)
 
       shelley.movies_checked_out_count.must_equal 0
     end
