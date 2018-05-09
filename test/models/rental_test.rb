@@ -10,9 +10,9 @@ describe Rental do
       rental_one.valid?.must_equal true
     end
 
-    it "must be invalid if returned is true" do
+    it "must be valid if returned is true" do
       rental_two = rentals(:rental_two)
-      rental_two.valid?.must_equal false
+      rental_two.valid?.must_equal true
     end
 
     it "must be invalid if due date, customer, and movie are blank" do
@@ -64,6 +64,5 @@ describe Rental do
       rental.check_in
       rental.returned.must_equal true
     end
-
   end
 end
