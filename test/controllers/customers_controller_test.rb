@@ -81,7 +81,7 @@ describe CustomersController do
 
       # Assert
       assert_response :success
-      Customer.last.registered_at.to_date.must_equal Date.today
+      Customer.last.registered_at.to_date.must_equal Customer.last.created_at.to_date
     end
 
     it 'Returns bad request for bad params data' do

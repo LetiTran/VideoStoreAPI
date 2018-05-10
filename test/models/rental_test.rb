@@ -56,13 +56,4 @@ describe Rental do
       rental.due_date.must_equal rental.created_at.to_date + 7
     end
   end
-
-  describe "check_in" do
-    it "can check a movie back in" do
-      rental.returned == false
-      rental.returned.must_equal false
-      rental.check_in
-      rental.returned.must_equal true
-    end
-  end
 end
