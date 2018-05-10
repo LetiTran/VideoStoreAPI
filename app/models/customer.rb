@@ -4,7 +4,7 @@ class Customer < ApplicationRecord
   has_many :rentals
 
   def movies_checked_out_count
-    return Rental.where(customer_id: self.id, returned: false).count
+    return Rental.where(customer_id: self.id).where(returned: false).count
   end
 
   def assign_registered_date

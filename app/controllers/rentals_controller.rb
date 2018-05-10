@@ -1,7 +1,6 @@
 class RentalsController < ApplicationController
   def index
     @rentals = Rental.all
-
   end
 
   def show
@@ -20,21 +19,30 @@ class RentalsController < ApplicationController
     if movie.available?
       rental = Rental.create(rental_params)
 
+
       if rental.valid?
         rental.assign_due_date
         render json: { id: rental.id }, status: :ok
       else
         render json: {ok: false, errors: rental.errors}, status: :bad_request
       end
+
+    else
+      render json: {ok: false, errors: "This will not work"}, status: :bad_request
+
     end
+
   end
 
   def update
-    rental = Rental.where(customer_id: params[:customer_id]).find_by(movie_id: params[:movie_id])
+    rental = Rental.where(customer_id: params[:customer_id]).where(movie_id: params[:movie_id]).find_by(returned: false)
+
 
     if rental
-      rental.check_in
+      rental.update_attributes(returned: true)
       render json: { id: rental.id }, status: :ok
+    else
+      render json: { ok: false, errors: "This will not work" }, status: :bad_request
     end
 
 
