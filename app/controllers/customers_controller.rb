@@ -7,8 +7,13 @@ class CustomersController < ApplicationController
   def index
     # Person.look_for(params[:search]).paginate :page => params[:page]
 
-
-    @customers = Customer.all.paginate(page: params[:p], per_page: params[:n])
+    if params[:sort]
+      sort = params[:sort]
+    else
+      sort = id
+    end
+# binding.pry
+    @customers = Customer.order(":#{sort}").paginate(page: params[:p], per_page: params[:n])
 
     # @customers = Customer.all
   end
@@ -32,6 +37,6 @@ class CustomersController < ApplicationController
 
   private
   def customers_params
-    params.permit(:name, :phone, :address, :city, :state, :postal_code, :p, :n)
+    params.permit(:name, :phone, :address, :city, :state, :postal_code, :p, :n, :sort)
   end
 end
