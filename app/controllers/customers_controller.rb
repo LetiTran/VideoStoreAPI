@@ -23,16 +23,39 @@ class CustomersController < ApplicationController
 
   def overdues
     non_checked_in_rentals = Rental.where(returned: false)
-    overdue_rentals = []
 
+
+    # overdue_rentals = []
+    # @customer_with_overdue ={}
+    #
+    # Customer.all.each do |customer|
+    #   overdue_rentals << customer.rentals.where(returned: false)
+    #   overdue_rentals.each do |rental|
+    #     binding.pry
+    #     if rental.due_date < Date.today
+    #
+    #       @customer_with_overdue[customer] = rental
+    #
+    #     end
+    #   end
+    # end
+    # binding.pry
+
+    overdue_rentals = []
+    customers_with_overdue = []
+    #
+    #
     non_checked_in_rentals.each do |rental|
       if rental.due_date < Date.today
-        overdue_rentals << rental
+        # overdue_rentals << rental
+         customers_with_overdue << Customer.find_by(id: rental.customer_id)
+
       end
     end
 
-    unless overdue_rentals.empty?
-      @overdue_rentals = overdue_rentals
+
+    unless customers_with_overdue.empty?
+      @customer_with_overdue = customers_with_overdue
     else
       render json: {ok: false, errors: "There are no overdue rentals"}, status: :bad_request
     end
