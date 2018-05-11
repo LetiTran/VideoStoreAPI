@@ -9,10 +9,4 @@ class Rental < ApplicationRecord
   def assign_due_date
     self.update_attributes(due_date: (self.created_at.to_date + ONE_WEEK))
   end
-
-  def check_in
-    if self.returned == false
-      self.update_attributes(returned: true)
-    end
-  end
 end
