@@ -3,7 +3,6 @@ class Movie < ApplicationRecord
   validates :title, :release_date, :overview, :inventory, presence: true
   has_many :rentals
 
-
   def available_inventory
     if  self.inventory
       available_count = self.inventory - Rental.where(movie_id: self.id, returned: false).count

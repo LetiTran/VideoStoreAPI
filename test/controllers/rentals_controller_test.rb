@@ -27,7 +27,7 @@ describe RentalsController do
     end
 
     it "returns rentals with exactly the required fields" do
-      keys = %w(assign_due_date customer_id id movie_id returned)
+      keys = %w(customer_id due_date id movie_id returned)
 
       get rentals_url
       body = JSON.parse(response.body)
