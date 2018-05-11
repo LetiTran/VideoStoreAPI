@@ -7,13 +7,13 @@ class CustomersController < ApplicationController
   def index
     # Person.look_for(params[:search]).paginate :page => params[:page]
 
-    if params[:sort]
-      sort = params[:sort]
+    if params[:sort] == "name"
+      sort = :name
     else
-      sort = id
+      sort = :id
     end
 # binding.pry
-    @customers = Customer.order(":#{sort}").paginate(page: params[:p], per_page: params[:n])
+    @customers = Customer.order(sort).paginate(page: params[:p], per_page: params[:n])
 
     # @customers = Customer.all
   end
