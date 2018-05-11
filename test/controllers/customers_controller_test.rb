@@ -104,7 +104,6 @@ describe CustomersController do
       body.must_include "errors"
       body["errors"].must_include "name"
     end
-
   end
 
   describe 'Show' do
@@ -128,7 +127,6 @@ describe CustomersController do
       # Assert
       must_respond_with :not_found
     end
-
   end
 
   describe 'Zomg ' do

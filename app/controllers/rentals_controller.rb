@@ -12,13 +12,10 @@ class RentalsController < ApplicationController
   end
 
   def create
-
     movie = Movie.find_by(id: params[:movie_id])
-
 
     if movie.available?
       rental = Rental.create(rental_params)
-
 
       if rental.valid?
         rental.assign_due_date
@@ -29,14 +26,11 @@ class RentalsController < ApplicationController
 
     else
       render json: {ok: false, errors: "This will not work"}, status: :bad_request
-
     end
-
   end
 
   def update
     rental = Rental.where(customer_id: params[:customer_id]).where(movie_id: params[:movie_id]).find_by(returned: false)
-
 
     if rental
       rental.update_attributes(returned: true)
@@ -44,8 +38,6 @@ class RentalsController < ApplicationController
     else
       render json: { ok: false, errors: "This will not work" }, status: :bad_request
     end
-
-
   end
 
   private

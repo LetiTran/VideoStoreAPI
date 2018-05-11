@@ -10,6 +10,4 @@ class Customer < ApplicationRecord
   def assign_registered_date
     self.update_attributes(registered_at: self.created_at)
   end
-
-
 end
