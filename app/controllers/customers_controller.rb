@@ -1,12 +1,16 @@
 class CustomersController < ApplicationController
-
   def zomg
     message = "it works"
     render json: message.as_json
   end
 
   def index
-    @customers = Customer.all
+    # Person.look_for(params[:search]).paginate :page => params[:page]
+
+
+    @customers = Customer.all.paginate(page: params[:page], per_page: 5)
+
+    # @customers = Customer.all
   end
 
   def create

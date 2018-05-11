@@ -3,6 +3,8 @@ class Customer < ApplicationRecord
 
   has_many :rentals
 
+  # scope :by_name, -> (name) { where(name: name) }
+
   def movies_checked_out_count
     return Rental.where(customer_id: self.id).where(returned: false).count
   end
