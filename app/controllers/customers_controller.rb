@@ -21,6 +21,23 @@ class CustomersController < ApplicationController
     end
   end
 
+  def overdues
+    non_checked_in_rentals = Rental.where(returned: false)
+    overdue_rentals = []
+
+    non_checked_in_rentals.each do |rental|
+      if rental.due_date < Date.today
+        overdue_rentals << rental
+      end
+    end
+
+    unless overdue_rentals.empty?
+      @overdue_rentals = overdue_rentals
+    else
+      render json: {ok: false, errors: "There are no overdue rentals"}, status: :bad_request
+    end
+  end
+
   # (Show not required)
   def show
     @customer = Customer.find_by(id: params[:id])
