@@ -5,17 +5,9 @@ class CustomersController < ApplicationController
   end
 
   def index
-    # Person.look_for(params[:search]).paginate :page => params[:page]
+    params[:sort] ? (sort = params[:sort].to_sym) : sort = :id
 
-    if params[:sort] == "name"
-      sort = :name
-    else
-      sort = :id
-    end
-# binding.pry
     @customers = Customer.order(sort).paginate(page: params[:p], per_page: params[:n])
-
-    # @customers = Customer.all
   end
 
   def create
