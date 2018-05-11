@@ -8,7 +8,7 @@ class CustomersController < ApplicationController
     # Person.look_for(params[:search]).paginate :page => params[:page]
 
 
-    @customers = Customer.all.paginate(page: params[:page], per_page: 5)
+    @customers = Customer.all.paginate(page: params[:p], per_page: params[:n])
 
     # @customers = Customer.all
   end
@@ -32,6 +32,6 @@ class CustomersController < ApplicationController
 
   private
   def customers_params
-    params.permit(:name, :phone, :address, :city, :state, :postal_code)
+    params.permit(:name, :phone, :address, :city, :state, :postal_code, :p, :n)
   end
 end
